@@ -7,7 +7,7 @@ import net.minecraft.network.chat.MutableComponent
 import net.minecraft.resources.Identifier
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import work.lclpnet.ac.module.AntiAutoClicker
+import work.lclpnet.ac.anti_auto_clicker.AntiAutoClicker
 import work.lclpnet.kibu.translate.util.ModTranslations
 
 class SimpleAcInit : ModInitializer {
