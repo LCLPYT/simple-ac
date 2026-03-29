@@ -7,6 +7,7 @@ gradle-build-tools = "1.7.0"
 java = "21"
 kotlin = "2.3.10"
 fabric-language-kotlin = "1.13.9+kotlin.2.3.10"
+kibu = "0.153.3+1.21.11"
 
 [plugins]
 fabric-loom = { id = "fabric-loom", version.ref = "fabric-loom" }
@@ -21,3 +22,4 @@ fabric-loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric-l
 fabric-language-kotlin = { module = "net.fabricmc:fabric-language-kotlin", version.ref = "fabric-language-kotlin" }
 fabric-loader-junit = { module = "net.fabricmc:fabric-loader-junit", version.ref = "fabric-loader" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+kibu = { module = "work.lclpnet.mods.kibu:kibu", version.ref="kibu" }

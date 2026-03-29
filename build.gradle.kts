@@ -46,6 +46,8 @@ dependencies {
     modImplementation(libs.fabric.api)
     modImplementation(libs.fabric.language.kotlin)
 
+    modImplementation(libs.kibu)
+
     testImplementation(libs.fabric.loader.junit)
     testImplementation(libs.kotlin.test)
 }
