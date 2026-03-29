@@ -130,7 +130,7 @@ tasks.register<GithubDeploymentTask>("github") {
     }
 
     release {
-        title = "[${libs.versions.minecraft}] ${project.name} ${project.version}"
+        title = "[${libs.versions.minecraft.get()}] ${project.name} ${project.version}"
         tag = project.version.toString()
     }
 
