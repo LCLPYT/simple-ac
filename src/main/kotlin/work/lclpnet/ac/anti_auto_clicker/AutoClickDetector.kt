@@ -7,10 +7,12 @@ import java.util.concurrent.ConcurrentHashMap
 import kotlin.math.pow
 import kotlin.math.sqrt
 
+private const val DEBUG_DETAILED = false
+
 class AutoClickDetector(
     val maxCps: Int = 20,
     val sampleSize: Int = 30,
-    logger: Logger
+    val logger: Logger
 ) {
 
     init {
@@ -39,6 +41,7 @@ class AutoClickDetector(
         val clicksInLastSecond = timestamps.count { it >= oneSecondAgo }
 
         if (clicksInLastSecond > maxCps) {
+            logger.debug("Max CPS exceeded for ${player.plainTextName}")
             return true
         }
 
@@ -64,14 +67,23 @@ class AutoClickDetector(
         val variance = validDelays.map { (it - mean).pow(2) }.average()
         val stdDev = sqrt(variance)
 
-        val ping = getPlayerLatencyMs(player)
+        if (DEBUG_DETAILED) {
+            logger.debug("${player.plainTextName} - mean: $mean; stddev: $stdDev")
+        }
 
-        // Dynamic Threshold: Humans normally have a stdDev > 10ms.
-        // We set a strict baseline of 4.0ms. We add +1.0ms leniency for every 50ms of ping.
-        // If a high-ping player somehow maintains a rock-solid click rhythm, it's likely a bot.
-        val dynamicMinDeviation = 4.0 + (ping / 50.0)
+        // Quantization Analysis: We round delays to the nearest 5ms.
+        // A bot will land on the same "buckets" repeatedly.
+        val quantizedUniqueCount = validDelays.map { (it / 5) * 5 }.distinct().size
 
-        // Flag if the clicks are unnaturally consistent
+        if (quantizedUniqueCount <= 2 && mean < 75 && stdDev < 30) {
+            logger.debug("Quantization analysis found $quantizedUniqueCount buckets and a mean of $mean for player ${player.plainTextName}")
+            return true
+        }
+
+        val latencyMs = getPlayerLatencyMs(player)
+
+        val dynamicMinDeviation = 4.0 + (latencyMs / 50.0)
+
         return stdDev < dynamicMinDeviation
     }
 
