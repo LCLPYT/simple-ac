@@ -37,10 +37,6 @@ loom {
     }
 }
 
-fabricApi {
-    configureDataGeneration()
-}
-
 dependencies {
     minecraft(libs.minecraft)
 
@@ -125,8 +121,8 @@ publishing {
             from(components["java"])
 
             pom {
-                name.set("Test Mod")
-                description.set("This is an example description! Tell everyone what your mod is about!")
+                name.set("simple-ac")
+                description.set("Simple anti-cheat for Minecraft servers ")
             }
         }
     }

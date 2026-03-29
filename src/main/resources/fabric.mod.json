@@ -1,34 +1,31 @@
 {
   "schemaVersion": 1,
-  "id": "testmod",
+  "id": "simple-ac",
   "version": "${version}",
-  "name": "Test Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Simple Anti-Cheat",
+  "description": "Simple anti-cheat for Minecraft servers ",
   "authors": [
-    "Me!"
+    "LCLP"
   ],
   "contact": {
-    "homepage": "https://github.com/LCLPYT/fabric-kotlin-kickstarter",
-    "sources": "https://github.com/LCLPYT/fabric-kotlin-kickstarter"
+    "homepage": "https://github.com/LCLPYT/simple-ac",
+    "sources": "https://github.com/LCLPYT/simple-ac"
   },
-  "license": "CC0-1.0",
-  "icon": "assets/testmod/icon.png",
+  "license": "MIT",
+  "icon": "assets/simple-ac/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "com.example.ExampleMod"
+      "work.lclpnet.ac.SimpleAcInit"
     ],
     "client": [
-      "com.example.ExampleModClient"
-    ],
-    "fabric-datagen": [
-      "com.example.ExampleModDataGenerator"
+      "work.lclpnet.ac.SimpleAcClientInit"
     ]
   },
   "mixins": [
-    "testmod.mixins.json",
+    "simple-ac.mixins.json",
     {
-      "config": "testmod.client.mixins.json",
+      "config": "simple-ac.client.mixins.json",
       "environment": "client"
     }
   ],

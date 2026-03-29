@@ -1,18 +1,18 @@
-package com.example
+package work.lclpnet.ac
 
 import net.fabricmc.api.ModInitializer
 import net.minecraft.resources.Identifier
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-class ExampleMod : ModInitializer {
+class SimpleAcInit : ModInitializer {
 
     override fun onInitialize() {
         LOGGER.info("Initialized.")
     }
 
     companion object {
-        const val MOD_ID = "testmod"
+        const val MOD_ID = "simple-ac"
 
         @JvmField
         val LOGGER: Logger = LoggerFactory.getLogger(MOD_ID)

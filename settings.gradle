@@ -13,4 +13,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'fabric-kotlin-kickstarter'
+rootProject.name = 'simple-ac'
