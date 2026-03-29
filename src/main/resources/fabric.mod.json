@@ -34,7 +34,8 @@
     "minecraft": "~${minecraft_compat}",
     "java": ">=${java_version}",
     "fabric-api": "*",
-    "fabric-language-kotlin": ">=${fabric_language_kotlin}"
+    "fabric-language-kotlin": ">=${fabric_language_kotlin}",
+    "kibu": "*"
   },
   "suggests": {}
 }
