@@ -1,3 +1,5 @@
+import net.fabricmc.loom.task.RemapJarTask
+import work.lclpnet.build.task.GithubDeploymentTask
 import java.util.Properties
 
 plugins {
@@ -8,6 +10,7 @@ plugins {
 }
 
 val props: Properties = buildUtils.loadProperties("publish.properties")  // will be empty, if the file is missing
+val env: Map<String, String> = System.getenv()
 
 version = "${project.property("mod_version")!!}+${libs.versions.minecraft.get()}"
 group = project.property("maven_group")!!
@@ -113,6 +116,25 @@ tasks.jar {
     from("LICENSE") {
         rename { "${it}_${base.archivesName.get()}" }
     }
+}
+
+
+tasks.register<GithubDeploymentTask>("github") {
+    val artifactTask = tasks.getByName<RemapJarTask>("remapJar")
+
+    dependsOn(artifactTask)
+
+    config {
+        token = env["GITHUB_TOKEN"]
+        repository = env["GITHUB_REPOSITORY"]
+    }
+
+    release {
+        title = "[${libs.versions.minecraft}] ${project.name} ${project.version}"
+        tag = project.version.toString()
+    }
+
+    assets.add(artifactTask.archiveFile.get())
 }
 
 publishing {
