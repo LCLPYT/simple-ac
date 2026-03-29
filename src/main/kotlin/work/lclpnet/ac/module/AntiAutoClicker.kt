@@ -1,14 +1,15 @@
 package work.lclpnet.ac.module
 
+import net.fabricmc.fabric.api.event.player.AttackEntityCallback
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup
 import net.minecraft.ChatFormatting
-import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.world.InteractionResult
 import org.slf4j.Logger
 import work.lclpnet.ac.SimpleAcInit
 import work.lclpnet.kibu.hook.HookContainer
+import work.lclpnet.kibu.hook.entity.PlayerInteractionHooks
 import work.lclpnet.kibu.hook.player.PlayerConnectionHooks
-import work.lclpnet.kibu.hook.player.PlayerSwingHandHook
 import work.lclpnet.kibu.translate.Translations
 import work.lclpnet.kibu.translate.text.FormatWrapper
 import java.util.*
@@ -26,7 +27,7 @@ class AntiAutoClicker(
     private val flagged = ConcurrentHashMap<UUID, MutableList<Long>>()
 
     companion object {
-        const val MAX_CPS = 25
+        const val MAX_CPS = 20
         const val SAMPLE_SIZE = 30
         const val FLAG_WINDOW_MS = 20_000
         const val MAX_FLAGS = 5
@@ -41,8 +42,12 @@ class AntiAutoClicker(
     fun activate() {
         deactivate()
 
-        hooks.registerHook(PlayerSwingHandHook.HOOK, PlayerSwingHandHook { player, _ ->
-            onInteraction(player)
+        hooks.registerHook(PlayerInteractionHooks.ATTACK_ENTITY, AttackEntityCallback { player, _, _, _, _ ->
+            if (player is ServerPlayer) {
+                onInteraction(player)
+            }
+
+            InteractionResult.PASS
         })
 
         hooks.registerHook(PlayerConnectionHooks.QUIT, PlayerConnectionHooks.ServerPlayerAction { player ->
