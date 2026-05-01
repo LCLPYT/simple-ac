@@ -44,13 +44,11 @@ loom {
 dependencies {
     minecraft(libs.minecraft)
 
-    mappings(loom.officialMojangMappings())
+    implementation(libs.fabric.loader)
+    implementation(libs.fabric.api)
+    implementation(libs.fabric.language.kotlin)
 
-    modImplementation(libs.fabric.loader)
-    modImplementation(libs.fabric.api)
-    modImplementation(libs.fabric.language.kotlin)
-
-    modImplementation(libs.kibu)
+    implementation(libs.kibu)
 
     testImplementation(libs.fabric.loader.junit)
     testImplementation(libs.kotlin.test)
@@ -123,7 +121,7 @@ tasks.jar {
 
 
 tasks.register<GithubDeploymentTask>("github") {
-    val artifactTask = tasks.getByName<RemapJarTask>("remapJar")
+    val artifactTask = tasks.getByName<Jar>("jar")
 
     dependsOn(artifactTask)
 
