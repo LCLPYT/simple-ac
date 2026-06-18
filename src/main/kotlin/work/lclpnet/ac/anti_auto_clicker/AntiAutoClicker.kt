@@ -75,14 +75,14 @@ class AntiAutoClicker(
         // suspected auto-click
         player.connection.disconnect(
             translations.translateText("simple-ac.anti-auto-clicker.not_allowed")
-                .formatted(ChatFormatting.RED)
+                .withStyle(ChatFormatting.RED)
                 .translateFor(player)
         )
 
         translations.translateText(
             "simple-ac.anti-auto-clicker.kicked",
             FormatWrapper.styled(player.plainTextName, ChatFormatting.YELLOW)
-        ).formatted(ChatFormatting.RED)
+        ).withStyle(ChatFormatting.RED)
             .prefixed(SimpleAcInit.PREFIX)
             .sendTo(PlayerLookup.all(player.level().server))
     }
